@@ -38,9 +38,9 @@ class GenerateWizard(models.TransientModel):
                 % (", ".join([module.name for module in modules]))
             )
         # Now reinitialize all installed modules
-        self.env["ir.module.module"].search([("state", "=", "installed")]).write(
-            {"state": "to install"}
-        )
+        self.env["ir.module.module"].search(
+            [("state", "=", "installed"), ("name", "!=", "base")]
+        ).write({"state": "to install"})
         self.env.cr.commit()  # pylint: disable=invalid-commit
 
         # Patch the registry on the thread

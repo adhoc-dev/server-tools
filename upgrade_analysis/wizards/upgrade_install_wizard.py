@@ -3,8 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.fields import Domain
 from odoo.modules.registry import Registry
-from odoo.osv.expression import AND
 
 from ..blacklist import (
     BLACKLIST_MODULES,
@@ -39,7 +39,7 @@ class UpgradeInstallWizard(models.TransientModel):
             ("name", "not in", BLACKLIST_MODULES),
         ]
         if extra_domain:
-            domain = AND([domain, extra_domain])
+            domain = Domain.AND([domain, extra_domain])
         modules = self.env["ir.module.module"].search(domain)
 
         for start_pattern in BLACKLIST_MODULES_STARTS_WITH:

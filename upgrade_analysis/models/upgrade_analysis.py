@@ -75,10 +75,7 @@ class UpgradeAnalysis(models.Model):
     def _get_remote_model(self, connection, model):
         self.ensure_one()
         if model == "record":
-            if float(self.config_id.version) < 14.0:
-                return connection.env["openupgrade.record"]
-            else:
-                return connection.env["upgrade.record"]
+            return connection.env["upgrade.record"]
         return False
 
     def _write_file(
