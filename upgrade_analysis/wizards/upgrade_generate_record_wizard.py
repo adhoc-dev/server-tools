@@ -68,11 +68,7 @@ class GenerateWizard(models.TransientModel):
                 AND our.name = imd.module || '.' || imd.name
             """
         )
-        self.env.cache.invalidate(
-            [
-                (self.env["upgrade.record"]._fields["domain"], None),
-            ]
-        )
+        self.env["upgrade.record"]._invalidate_cache(["domain"])
 
         # Set constraint definition
         self.env.cr.execute(
@@ -86,11 +82,7 @@ class GenerateWizard(models.TransientModel):
                 AND our.model = imd.model
                 AND our.name = imd.module || '.' || imd.name"""
         )
-        self.env.cache.invalidate(
-            [
-                (self.env["upgrade.record"]._fields["definition"], None),
-            ]
-        )
+        self.env["upgrade.record"]._invalidate_cache(["definition"])
 
         # Set noupdate property from ir_model_data
         self.env.cr.execute(
@@ -102,11 +94,7 @@ class GenerateWizard(models.TransientModel):
                 AND our.name = imd.module || '.' || imd.name
             """
         )
-        self.env.cache.invalidate(
-            [
-                (self.env["upgrade.record"]._fields["noupdate"], None),
-            ]
-        )
+        self.env["upgrade.record"]._invalidate_cache(["noupdate"])
 
         # Log model records
         self.env.cr.execute(

@@ -66,7 +66,7 @@ class TestUpgradeAnalysis(common.TransactionCase):
             )
         )
         with OdooPatch():
-            self.env["ir.model.constraint"]._reflect_model(self.IrModuleModule)
+            self.env["ir.model.constraint"]._reflect_table_object(self.IrModuleModule)
         self.assertTrue(
             self.env["upgrade.record"].search(
                 [
